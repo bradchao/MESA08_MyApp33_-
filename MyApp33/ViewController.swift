@@ -12,7 +12,7 @@ import Speech
 class ViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     
-    let audioEngine = AVAudioEngine()
+    var audioEngine = AVAudioEngine()
     var request = SFSpeechAudioBufferRecognitionRequest()
     let speechRecog = SFSpeechRecognizer(locale: Locale(identifier: "zh-TW"))
     var recogTask:SFSpeechRecognitionTask? = nil
@@ -25,9 +25,10 @@ class ViewController: UIViewController {
             // 中斷
             audioEngine.stop()
             request.endAudio()
-            
+            audioEngine.reset()
         }else {
             // 開始錄
+            audioEngine = AVAudioEngine()
             startRecording()
         }
         
